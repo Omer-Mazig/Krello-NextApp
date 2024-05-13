@@ -6,6 +6,8 @@ import { useFormStatus } from "react-dom";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
+import { DEFAULT_IMAGES } from "@/constants/images";
+
 interface FormPickerProps {
   id: string;
   errors?: Record<string, string[] | undefined>;
@@ -14,7 +16,8 @@ interface FormPickerProps {
 export const FormPicker = ({ id, errors }: FormPickerProps) => {
   const { pending } = useFormStatus();
 
-  const [images, setImages] = useState<Array<Record<string, any>>>([]);
+  const [images, setImages] =
+    useState<Array<Record<string, any>>>(DEFAULT_IMAGES);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [selectedImageId, setSelectedImageId] = useState(null);
 
@@ -34,7 +37,7 @@ export const FormPicker = ({ id, errors }: FormPickerProps) => {
         }
       } catch (error) {
         console.error(error);
-        setImages([]);
+        setImages(DEFAULT_IMAGES);
       } finally {
         setIsLoading(false);
       }
