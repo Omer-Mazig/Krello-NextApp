@@ -12,7 +12,7 @@ export const FormErrors = ({ id, errors }: FormErrorsProps) => {
     <div
       id={`${id}-error`}
       aria-live="polite"
-      className="mt-2 tex-sm text-rose-500"
+      className="mt-2 text-sm text-rose-500"
     >
       {errors?.[id]?.map((error: string) => (
         <div

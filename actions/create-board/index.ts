@@ -27,7 +27,7 @@ const hanlder = async (data: InputType): Promise<ReturnType> => {
     });
   } catch (error) {
     return {
-      erorr: "database error",
+      erorr: "Failed to create",
     };
   }
 

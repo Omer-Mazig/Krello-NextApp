@@ -7,9 +7,9 @@ export const CreateBoard = z.object({
       invalid_type_error: "Title must be a string",
     })
     .min(3, {
-      message: "Title must be at least 3 characters long",
+      message: "Title is too short",
     })
     .max(30, {
-      message: "Title must be at most 255 characters long",
+      message: "Title is too long",
     }),
 });
