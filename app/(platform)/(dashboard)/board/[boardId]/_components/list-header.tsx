@@ -6,7 +6,8 @@ import { useAction } from "@/hooks/use-action";
 import { List } from "@prisma/client";
 import { ElementRef, useRef, useState } from "react";
 import { toast } from "sonner";
-import { useEventListener, useOnClickOutside } from "usehooks-ts";
+import { useEventListener } from "usehooks-ts";
+import { ListOptions } from "./list-options";
 
 interface ListHeaderProps {
   data: List;
@@ -65,7 +66,6 @@ export const ListHeader = ({ data }: ListHeaderProps) => {
   };
 
   useEventListener("keydown", onKeyDown);
-  useOnClickOutside(formRef, disableEditing);
 
   return (
     <div className="pt-2 px-2 text-sm font-semibold flex justify-between items-start gap-x-2">
@@ -84,10 +84,11 @@ export const ListHeader = ({ data }: ListHeaderProps) => {
           <button type="submit" hidden></button>
         </form>
       ) : (
-        <div onClick={enableEditing}>
+        <div className="w-full" onClick={enableEditing}>
           <h2 className="w-full px-2.5 py-1 h-7 border-transparent">{title}</h2>
         </div>
       )}
+      <ListOptions data={data} onAddCard={() => {}} />
     </div>
   );
 };
