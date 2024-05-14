@@ -12,7 +12,7 @@ const hanlder = async (data: InputType): Promise<ReturnType> => {
 
   if (!userId || !orgId) {
     return {
-      erorr: "Unauthorized",
+      error: "Unauthorized",
     };
   }
 
@@ -28,7 +28,7 @@ const hanlder = async (data: InputType): Promise<ReturnType> => {
     !imageUserName
   ) {
     return {
-      erorr: "Missing fields. failed to create",
+      error: "Missing fields. failed to create",
     };
   }
 
@@ -48,7 +48,7 @@ const hanlder = async (data: InputType): Promise<ReturnType> => {
     });
   } catch (error) {
     return {
-      erorr: "Failed to create",
+      error: "Failed to create",
     };
   }
 
