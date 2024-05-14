@@ -31,7 +31,7 @@ export const FormSubmit = ({
     <Button
       disabled={disabled || pending}
       type="submit"
-      variant={variant}
+      variant={variant || "primary"}
       size="sm"
       className={cn(className)}
     >
