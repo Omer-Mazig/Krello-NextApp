@@ -5,6 +5,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
 
 import { useAction } from "@/hooks/use-action";
 import { createBoard } from "@/actions/create-board";
@@ -12,7 +14,6 @@ import { createBoard } from "@/actions/create-board";
 import { FormInput } from "./form-input";
 import { FormSubmit } from "./form-submit";
 import { PopoverClose } from "@radix-ui/react-popover";
-import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import { toast } from "sonner";
 import { FormPicker } from "./form-picker";
@@ -62,25 +63,35 @@ export const FormCreateBoard = ({
         sideOffset={sideOffset}
         className="w-80 pt-3"
       >
-        <div className=" text-sm font-medium text-center text-neutral-600 pb-4">
-          Create board
+        <div>
+          <h3 className=" text-sm font-medium text-center text-neutral-600 pb-4">
+            Create board
+          </h3>
+          <PopoverClose asChild ref={closeRef}>
+            <Button
+              className="w-auto h-auto p-2 absolute top-2 right-2 text-neutral-600"
+              variant="ghost"
+            >
+              <X className="h-4 w-4" />
+            </Button>
+          </PopoverClose>
         </div>
-        <PopoverClose asChild ref={closeRef}>
-          <Button
-            className="w-auto h-auto p-2 absolute top-2 right-2 text-neutral-600"
-            variant="ghost"
-          >
-            <X className="h-4 w-4" />
-          </Button>
-        </PopoverClose>
+        <Separator className="mb-4" />
         <form action={onSubmit} className="space-y-4">
           <div className="space-y-4">
             <div className="relative">
+              <div>
+                <h4 className="text-xs font-semibold text-neutral-700 mb-2">
+                  Background
+                </h4>
+              </div>
               <div className="grid grid-cols-3 gap-2 mb-2">
                 <FormPicker id="image" />
               </div>
               <FormErrors id="image" errors={fieldErrors} />
             </div>
+
+            <Separator />
 
             <FormInput
               id="title"

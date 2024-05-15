@@ -1,14 +1,11 @@
 "use client";
-import { useEffect, useState } from "react";
-import { unsplash } from "@/lib/unsplash";
+import { useState } from "react";
 import { Check, Loader2 } from "lucide-react";
 import { useFormStatus } from "react-dom";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
-import { DEFAULT_IMAGES } from "@/constants/images";
 import Link from "next/link";
-import { FormErrors } from "./form-errors";
 import { useFetchUnsplashImages } from "@/hooks/use-fetch-unsplash-images";
 
 interface FormPickerProps {
