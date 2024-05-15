@@ -2,6 +2,7 @@ import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { ListContainer } from "./_components/list-container";
+import { BoardOptions } from "./_components/board-options";
 
 interface BoardIdPageProps {
   params: {

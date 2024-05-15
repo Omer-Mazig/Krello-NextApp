@@ -12,7 +12,7 @@ export const useFetchUnsplashImages = () => {
             try {
                 const result = await unsplash.photos.getRandom({
                     collectionIds: ["317099"],
-                    count: 9,
+                    count: 6,
                 });
                 if (result && result.response) {
                     const newImages = result.response as Array<Record<string, any>>;
