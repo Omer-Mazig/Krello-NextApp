@@ -10,12 +10,19 @@ import { useFetchUnsplashImages } from "@/hooks/use-fetch-unsplash-images";
 
 interface FormPickerProps {
   id: string;
+  submitOnChange?: () => void | undefined;
 }
 
-export const FormPicker = ({ id }: FormPickerProps) => {
+export const FormPicker = ({ id, submitOnChange }: FormPickerProps) => {
   const { pending } = useFormStatus();
   const { images, isLoading } = useFetchUnsplashImages();
   const [selectedImageId, setSelectedImageId] = useState(null);
+
+  useEffect(() => {
+    if (submitOnChange && selectedImageId) {
+      submitOnChange();
+    }
+  }, [submitOnChange, selectedImageId]);
 
   if (isLoading) {
     return (

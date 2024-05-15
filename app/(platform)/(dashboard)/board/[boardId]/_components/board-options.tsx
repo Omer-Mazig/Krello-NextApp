@@ -22,6 +22,7 @@ interface BoardOptionsProps {
 }
 
 export const BoardOptions = ({ id }: BoardOptionsProps) => {
+  const changeImageFormRef = useRef<ElementRef<"form">>(null);
   const { execute: executeDelete, isLoading: isLoadingDelete } = useAction(
     deleteBoard,
     {
@@ -75,9 +76,12 @@ export const BoardOptions = ({ id }: BoardOptionsProps) => {
 
         <Separator className="my-4" />
 
-        <form action={onChangeImage}>
+        <form ref={changeImageFormRef} action={onChangeImage}>
           <div className="grid grid-cols-2 gap-2 mb-2">
-            <FormPicker id="image" />
+            <FormPicker
+              id="image"
+              submitOnChange={() => changeImageFormRef.current?.requestSubmit()}
+            />
           </div>
         </form>
 
