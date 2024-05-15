@@ -1,4 +1,4 @@
-import { FormPopover } from "@/components/form/form-popover";
+import { FormCreateBoard } from "@/components/form/form-create-board";
 import { Hint } from "@/components/hint";
 import { HelpCircle, User2 } from "lucide-react";
 import { db } from "@/lib/db";
@@ -30,7 +30,7 @@ export const BoardList = async () => {
         <span>Your boards</span>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-        {boards.map(board => (
+        {boards.map((board) => (
           <Link
             href={`/board/${board.id}`}
             key={board.id}
@@ -41,7 +41,7 @@ export const BoardList = async () => {
             <p className="relative font-semibold text-white">{board.title}</p>
           </Link>
         ))}
-        <FormPopover sideOffset={10} side="right">
+        <FormCreateBoard sideOffset={10} side="right">
           <div
             role="button"
             className="aspect-video relative h-full w-full bg-muted rounded-sm flex flex-col gap-y-1 items-center justify-center hover:opacity-75 transition"
@@ -57,7 +57,7 @@ export const BoardList = async () => {
               <HelpCircle className="absolute bottom-2 right-2 h-[14px] w-[14px]" />
             </Hint>
           </div>
-        </FormPopover>
+        </FormCreateBoard>
       </div>
     </div>
   );
