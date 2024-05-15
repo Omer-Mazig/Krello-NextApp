@@ -20,7 +20,7 @@ interface BoardOptionsProps {
 
 export const BoardOptions = ({ id }: BoardOptionsProps) => {
   const { execute, isLoading } = useAction(deleteBoard, {
-    onError: error => {
+    onError: (error) => {
       toast.error(error);
     },
   });
@@ -48,6 +48,10 @@ export const BoardOptions = ({ id }: BoardOptionsProps) => {
             </Button>
           </PopoverClose>
         </div>
+
+        <Separator className="my-4" />
+
+        <div className="grid grid-cols-2"></div>
 
         <Separator className="my-4" />
 

@@ -18,6 +18,7 @@ import { toast } from "sonner";
 import { FormPicker } from "./form-picker";
 import { ElementRef, useRef } from "react";
 import { useRouter } from "next/navigation";
+import { FormErrors } from "./form-errors";
 
 interface FormPopoverProps {
   children: React.ReactNode;
@@ -74,7 +75,12 @@ export const FormCreateBoard = ({
         </PopoverClose>
         <form action={onSubmit} className="space-y-4">
           <div className="space-y-4">
-            <FormPicker id="image" errors={fieldErrors} />
+            <div className="relative">
+              <div className="grid grid-cols-3 gap-2 mb-2">
+                <FormPicker id="image" />
+              </div>
+              <FormErrors id="image" errors={fieldErrors} />
+            </div>
 
             <FormInput
               id="title"
