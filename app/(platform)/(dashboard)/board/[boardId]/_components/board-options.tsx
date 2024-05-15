@@ -13,20 +13,40 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { MoreHorizontal, X } from "lucide-react";
 import { toast } from "sonner";
+import { FormPicker } from "@/components/form/form-picker";
+import { updateBoard } from "@/actions/update-board";
+import { ElementRef, useRef } from "react";
 
 interface BoardOptionsProps {
   id: string;
 }
 
 export const BoardOptions = ({ id }: BoardOptionsProps) => {
-  const { execute, isLoading } = useAction(deleteBoard, {
-    onError: (error) => {
-      toast.error(error);
-    },
-  });
+  const { execute: executeDelete, isLoading: isLoadingDelete } = useAction(
+    deleteBoard,
+    {
+      onError: (error) => {
+        toast.error(error);
+      },
+    }
+  );
+
+  const { execute: executeUpdate, isLoading: isLoadingUpdate } = useAction(
+    updateBoard,
+    {
+      onError: (error) => {
+        toast.error(error);
+      },
+    }
+  );
 
   const onDelete = () => {
-    execute({ id });
+    executeDelete({ id });
+  };
+
+  const onChangeImage = (fromData: FormData) => {
+    const image = fromData.get("image") as string;
+    executeUpdate({ id, image });
   };
 
   return (
@@ -36,7 +56,11 @@ export const BoardOptions = ({ id }: BoardOptionsProps) => {
           <MoreHorizontal className="h-4 w-4" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent side="bottom" align="start" className="px-0 pt-3 pb-3">
+      <PopoverContent
+        side="bottom"
+        align="start"
+        className="px-0 p-2 pt-3 pb-3"
+      >
         <div className="text-sm font-medium text-center text-neutral-600 ">
           <h4>Board actions </h4>
           <PopoverClose asChild>
@@ -51,12 +75,16 @@ export const BoardOptions = ({ id }: BoardOptionsProps) => {
 
         <Separator className="my-4" />
 
-        <div className="grid grid-cols-2"></div>
+        <form action={onChangeImage}>
+          <div className="grid grid-cols-2 gap-2 mb-2">
+            <FormPicker id="image" />
+          </div>
+        </form>
 
         <Separator className="my-4" />
 
         <Button
-          disabled={isLoading}
+          disabled={isLoadingDelete}
           variant="ghost"
           onClick={onDelete}
           className="rounded-none w-full h-auto p-2 px-5 justify-start font-normal text-sm"
