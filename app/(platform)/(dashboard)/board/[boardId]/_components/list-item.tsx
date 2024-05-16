@@ -30,7 +30,7 @@ export const ListItem = ({ index, data }: ListItemProps) => {
 
   return (
     <ListWrapper>
-      <div className="w-full rounded-md bg-[#f1f2f4] shadow-md pb-2">
+      <div className="w-full rounded-md bg-[#f1f2f4] shadow-md pb-2 max-h-[calc(100%-80px)] overflow-y-auto">
         <ListHeader data={data} onAddCard={enableEditing} />
         <ol
           className={cn(

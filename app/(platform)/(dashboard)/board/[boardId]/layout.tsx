@@ -49,7 +49,7 @@ const BoardIdLayout = async ({
   return (
     <div
       style={{ backgroundImage: `url(${board.imageFullUrl})` }}
-      className="relative flex flex-col h-[calc(100%-56px)] bg-no-repeat bg-cover bg-center"
+      className="relative flex flex-col h-[calc(100%-56px)] overflow-y-hidden bg-no-repeat bg-cover bg-center"
     >
       <div className="absolute inset-0 bg-black/20" />
       <BoardNavbar data={board} />
