@@ -9,6 +9,7 @@ import { Plus, X } from "lucide-react";
 import { useParams } from "next/navigation";
 import { ElementRef, KeyboardEventHandler, forwardRef, useRef } from "react";
 import { toast } from "sonner";
+import { text } from "stream/consumers";
 import { useEventListener, useOnClickOutside } from "usehooks-ts";
 
 interface CardFormProps {
@@ -42,9 +43,7 @@ export const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(
     useOnClickOutside(formRef, disableEditing);
     useEventListener("keydown", onKeyDown);
 
-    const onTextareaKeyDown: KeyboardEventHandler<HTMLTextAreaElement> = (
-      e
-    ) => {
+    const onTextareaKeyDown: KeyboardEventHandler<HTMLTextAreaElement> = e => {
       if (e.key === "Enter" && !e.shiftKey) {
         e.preventDefault();
         formRef.current?.requestSubmit();

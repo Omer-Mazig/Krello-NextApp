@@ -40,24 +40,26 @@ export const ListItem = ({ index, data }: ListItemProps) => {
         >
           <div
             {...provided.dragHandleProps}
-            className="w-full rounded-md bg-[#f1f2f4] shadow-md pb-2 max-h-[calc(100%-80px)] overflow-y-auto"
+            className="w-full rounded-md bg-[#f1f2f4] shadow-md pb-2 flex flex-col max-h-[calc(100%-80px)]"
           >
             <ListHeader data={data} onAddCard={enableEditing} />
             <Droppable droppableId={data.id} type="card">
               {provided => (
-                <ol
-                  {...provided.droppableProps}
-                  ref={provided.innerRef}
-                  className={cn(
-                    "mx-1 px-1 py-0.5 flex flex-col gap-2",
-                    data.cards.length > 0 ? "mt-2" : "mt-0"
-                  )}
-                >
-                  {data.cards.map((card, index) => (
-                    <CardItem key={card.id} index={index} data={card} />
-                  ))}
-                  {provided.placeholder}
-                </ol>
+                <div className="overflow-y-auto overflow-x-hidden">
+                  <ol
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                    className={cn(
+                      "mx-1 px-1 py-0.5 flex flex-col gap-2",
+                      data.cards.length > 0 ? "mt-2" : "mt-0"
+                    )}
+                  >
+                    {data.cards.map((card, index) => (
+                      <CardItem key={card.id} index={index} data={card} />
+                    ))}
+                    {provided.placeholder}
+                  </ol>
+                </div>
               )}
             </Droppable>
             <CardForm
