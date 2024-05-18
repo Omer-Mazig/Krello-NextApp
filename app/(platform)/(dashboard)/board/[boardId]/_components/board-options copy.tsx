@@ -61,7 +61,7 @@ export const BoardOptions = ({ id }: BoardOptionsProps) => {
       <PopoverContent
         side="bottom"
         align="start"
-        className="px-0 p-2 pt-3 pb-3 h-full"
+        className="px-0 p-2 pt-3 pb-3"
       >
         <div className="text-sm font-medium text-center text-neutral-600">
           <h4>Board actions </h4>
