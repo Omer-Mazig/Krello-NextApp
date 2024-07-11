@@ -4,26 +4,17 @@ import { deleteBoard } from "@/actions/delete-board";
 import { useAction } from "@/hooks/use-action";
 
 import { Button } from "@/components/ui/button";
-import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverClose,
-} from "@/components/ui/popover";
 
 import {
   Sheet,
-  SheetClose,
   SheetContent,
-  SheetDescription,
-  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
 
 import { Separator } from "@/components/ui/separator";
-import { MoreHorizontal, X } from "lucide-react";
+import { MoreHorizontal } from "lucide-react";
 import { toast } from "sonner";
 import { FormPicker } from "@/components/form/form-picker";
 import { updateBoard } from "@/actions/update-board";
@@ -59,6 +50,7 @@ export const BoardOptions = ({ id }: BoardOptionsProps) => {
 
   const onChangeImage = (fromData: FormData) => {
     const image = fromData.get("image") as string;
+
     executeUpdate({ id, image });
   };
 

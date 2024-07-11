@@ -20,6 +20,7 @@ export const BoardTitleForm = ({ data }: BoardTitleFormProps) => {
       disableEditing();
     },
     onError: error => {
+      inputRef.current!.value = title;
       toast.error(error);
     },
   });
