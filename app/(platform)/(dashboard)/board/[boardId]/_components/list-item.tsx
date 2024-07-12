@@ -61,7 +61,7 @@ export const ListItem = ({ index, data }: ListItemProps) => {
         >
           <div
             {...provided.dragHandleProps}
-            className="w-full rounded-md bg-[#f1f2f4] shadow-md pb-2 flex flex-col max-h-[calc(100%-400px)]"
+            className="w-full rounded-md bg-[#f1f2f4] shadow-md pb-2 flex flex-col max-h-[calc(100vh-250px)]"
           >
             <ListHeader data={data} onAddCard={() => enableEditing("top")} />
             <Droppable droppableId={data.id} type="card">
