@@ -14,7 +14,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     return { error: "Unauthorized" };
   }
 
-  const { title, boardId, listId } = data;
+  const { title, boardId, listId, position } = data;
   let card;
   try {
     const list = await db.list.findUnique({
@@ -25,13 +25,24 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       return { error: "List not found" };
     }
 
-    const lastCard = await db.card.findFirst({
-      where: { listId },
-      orderBy: { order: "desc" },
-      select: { order: true },
-    });
+    let newOrder = 1;
+    if (position === "bottom") {
+      const lastCard = await db.card.findFirst({
+        where: { listId },
+        orderBy: { order: "desc" },
+        select: { order: true },
+      });
 
-    const newOrder = lastCard ? lastCard.order + 1 : 1;
+      newOrder = lastCard ? lastCard.order + 1 : 1;
+    } else {
+      const firstCard = await db.card.findFirst({
+        where: { listId },
+        orderBy: { order: "asc" },
+        select: { order: true },
+      });
+
+      newOrder = firstCard ? firstCard.order - 1 : 1;
+    }
 
     card = await db.card.create({
       data: {

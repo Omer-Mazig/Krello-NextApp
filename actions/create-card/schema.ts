@@ -14,4 +14,5 @@ export const CreateCard = z.object({
 
   boardId: z.string(),
   listId: z.string(),
+  position: z.enum(["top", "bottom"]),
 });

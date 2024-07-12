@@ -9,25 +9,46 @@ import { ElementRef, useRef, useState } from "react";
 import { CardForm } from "./card-form";
 import { cn } from "@/lib/utils";
 import { CardItem } from "./card-item";
+import { Button } from "@/components/ui/button";
+import { Plus } from "lucide-react";
 
 interface ListItemProps {
   data: ListWithCards;
   index: number;
 }
 
+interface addCardFromModeInterface {
+  active: boolean;
+  position: "top" | "bottom";
+}
+
 export const ListItem = ({ index, data }: ListItemProps) => {
   const textereaRef = useRef<ElementRef<"textarea">>(null);
-  const [isEditing, setIsEditing] = useState(false);
+  const [addCardFromMode, setAddCardFromMode] =
+    useState<addCardFromModeInterface>({
+      active: false,
+      position: "bottom",
+    });
 
-  const enableEditing = () => {
-    setIsEditing(true);
+  const enableEditing = (position: "top" | "bottom") => {
+    setAddCardFromMode(prev => {
+      return {
+        position,
+        active: true,
+      };
+    });
     setTimeout(() => {
       textereaRef.current?.focus();
     }, 0);
   };
 
   const disableEditing = () => {
-    setIsEditing(false);
+    setAddCardFromMode(prev => {
+      return {
+        ...prev,
+        active: false,
+      };
+    });
   };
 
   return (
@@ -40,12 +61,21 @@ export const ListItem = ({ index, data }: ListItemProps) => {
         >
           <div
             {...provided.dragHandleProps}
-            className="w-full rounded-md bg-[#f1f2f4] shadow-md pb-2 flex flex-col max-h-[calc(100%-80px)]"
+            className="w-full rounded-md bg-[#f1f2f4] shadow-md pb-2 flex flex-col max-h-[calc(100%-400px)]"
           >
-            <ListHeader data={data} onAddCard={enableEditing} />
+            <ListHeader data={data} onAddCard={() => enableEditing("top")} />
             <Droppable droppableId={data.id} type="card">
               {provided => (
                 <div className="overflow-y-auto overflow-x-hidden">
+                  {addCardFromMode.active &&
+                  addCardFromMode.position === "top" ? (
+                    <CardForm
+                      listId={data.id}
+                      ref={textereaRef}
+                      disableEditing={disableEditing}
+                      position="top"
+                    />
+                  ) : null}
                   <ol
                     {...provided.droppableProps}
                     ref={provided.innerRef}
@@ -59,16 +89,31 @@ export const ListItem = ({ index, data }: ListItemProps) => {
                     ))}
                     {provided.placeholder}
                   </ol>
+                  {addCardFromMode.active &&
+                  addCardFromMode.position === "bottom" ? (
+                    <CardForm
+                      listId={data.id}
+                      ref={textereaRef}
+                      disableEditing={disableEditing}
+                      position="bottom"
+                    />
+                  ) : null}
                 </div>
               )}
             </Droppable>
-            <CardForm
-              listId={data.id}
-              ref={textereaRef}
-              isEditing={isEditing}
-              enableEditing={enableEditing}
-              disableEditing={disableEditing}
-            />
+            {addCardFromMode.active ? null : (
+              <div className="pt-2 px-2">
+                <Button
+                  onClick={() => enableEditing("bottom")}
+                  size="sm"
+                  variant="ghost"
+                  className="h-auto px-2 py-1.5 w-full justify-start text-muted-foreground text-sm"
+                >
+                  <Plus className="h-4 w-4 mr-2" />
+                  <span>Add a card</span>
+                </Button>
+              </div>
+            )}
           </div>
         </li>
       )}
